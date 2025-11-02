@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style Matcher - 디자인 조합 추천기</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Google Fonts (추천 폰트용) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&family=Raleway:wght@400;600;700&family=Permanent+Marker&family=Work+Sans:wght@400;500;600&family=Source+Sans+Pro:wght@400;600&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&family=Oswald:wght@400;600;700&family=Bebas+Neue&family=Impact:wght@400&family=Fredoka+One&family=Cinzel:wght@400;600&family=Old+Standard+TT:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Lora:wght@400;600&family=Poppins:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Bungee&family=Righteous&family=Cormorant:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="logo">🎨 Style Matcher</h1>
+        <div class="header-actions">
+          <button id="dark-mode-btn" class="btn-icon">🌙 다크 모드</button>
+          <a href="myboard.html" class="btn btn-secondary">My Board</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 콘텐츠 -->
+  <main class="main">
+    <div class="container">
+      <!-- 소개 섹션 -->
+      <section class="intro-section">
+        <h2 class="section-title">느낌을 선택하세요</h2>
+        <p class="section-subtitle">원하는 감성을 선택하면 컬러 팔레트와 폰트 조합을 추천해드립니다.</p>
+      </section>
+
+      <!-- 키워드 버튼 섹션 -->
+      <section class="keywords-section">
+        <div class="keyword-grid">
+          <button class="keyword-btn" data-keyword="따뜻한">
+            <span class="keyword-emoji">☕</span>
+            <span class="keyword-text">따뜻한</span>
+          </button>
+          <button class="keyword-btn" data-keyword="모던한">
+            <span class="keyword-emoji">✨</span>
+            <span class="keyword-text">모던한</span>
+          </button>
+          <button class="keyword-btn" data-keyword="레트로한">
+            <span class="keyword-emoji">🎸</span>
+            <span class="keyword-text">레트로한</span>
+          </button>
+          <button class="keyword-btn" data-keyword="미니멀한">
+            <span class="keyword-emoji">🎯</span>
+            <span class="keyword-text">미니멀한</span>
+          </button>
+          <button class="keyword-btn" data-keyword="화려한">
+            <span class="keyword-emoji">🌈</span>
+            <span class="keyword-text">화려한</span>
+          </button>
+          <button class="keyword-btn" data-keyword="빈티지한">
+            <span class="keyword-emoji">🍷</span>
+            <span class="keyword-text">빈티지한</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 추천 섹션 -->
+      <section id="recommendation-section" class="recommendation-section" style="display: none;">
+        <!-- 헤더 카드 -->
+        <div class="card card-header">
+          <div class="card-header-content">
+            <div>
+              <h3 class="card-title">
+                <span id="current-keyword"></span> 스타일 추천
+              </h3>
+              <p class="card-subtitle">Latest recommendations</p>
+            </div>
+            <div class="card-actions">
+              <button id="random-btn" class="btn btn-small">🎲 랜덤 추천</button>
+              <button id="copy-palette-btn" class="btn btn-small">📦 팔레트 복사</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 그리드 레이아웃 -->
+        <div class="recommendation-grid">
+          <!-- 컬러 팔레트 카드 -->
+          <div class="card">
+            <h4 class="card-section-label">컬러 팔레트</h4>
+            <div id="palette-container" class="palette-container"></div>
+            <p class="hint-text">색상칩을 클릭하면 HEX 코드가 복사됩니다</p>
+          </div>
+
+          <!-- 컬러 조합 추천 카드 -->
+          <div class="card">
+            <h4 class="card-section-label">🎨 컬러 베스트 조합</h4>
+            <div id="color-combination-container" class="color-combination-container"></div>
+          </div>
+
+          <!-- 폰트 카드 -->
+          <div class="card">
+            <h4 class="card-section-label">폰트 조합</h4>
+            <div id="fonts-container" class="fonts-container"></div>
+            <p class="hint-text">폰트를 클릭하면 다운로드 링크가 표시됩니다</p>
+          </div>
+
+          <!-- 설명 및 제안 카드 -->
+          <div class="card card-full">
+            <h4 class="card-section-label">스타일 가이드</h4>
+            <div class="description-section">
+              <p id="description" class="description"></p>
+              <p id="suggestion" class="suggestion"></p>
+            </div>
+            <div class="save-section">
+              <button id="favorite-btn" class="btn btn-primary btn-large">
+                ⭐ 즐겨찾기에 추가
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Style Matcher. 감성에 맞는 디자인을 찾아보세요.</p>
+    </div>
+  </footer>
+
+  <!-- 폰트 다운로드 모달 -->
+  <div id="font-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-font-name"></h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Google Fonts에서 이 폰트를 다운로드하거나 웹에서 사용할 수 있습니다.</p>
+        <div class="modal-links">
+          <a id="font-download-link" href="#" target="_blank" class="btn btn-primary">📥 Google Fonts에서 다운로드</a>
+          <a id="font-weblink" href="#" target="_blank" class="btn btn-secondary">🌐 웹에서 사용하기</a>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay"></div>
+  </div>
+
+  <!-- 스크립트 -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
